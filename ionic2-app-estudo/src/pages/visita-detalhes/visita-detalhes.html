@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <h6 class="navbar-titulo">Detalhes da Visita</h6>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+
+    <ion-buttons end>
+      <button ion-button item-end [outline]="!habilitarEdicao" small icon-only (click)="editarVisita()">
+          <ion-icon name="md-create"></ion-icon>
+        </button>
+      <button ion-button item-end outline [hidden]="!habilitarEdicao" small icon-only color="danger">
+          <ion-icon name="md-trash"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-item>
+      <h2 class="nome-empresa">ATM Digital Sistemas e Softwares</h2>
+    </ion-item>
+
+    <br/>
+
+    <ion-item>
+      <ion-label stacked>Data de agendamento</ion-label>
+      <ion-datetime disabled="true" displayFormat="DD MMM YYYY" [(ngModel)]="dataAgendamento"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Cliente foi visitado em</ion-label>
+      <ion-datetime [disabled]="!habilitarEdicao" [class.input-habilitar-edicao]="habilitarEdicao" displayFormat="DD MMM YYYY"
+        [(ngModel)]="dataVisita"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Contato no local</ion-label>
+      <ion-select placeholder="Selecione o contato" [disabled]="!habilitarEdicao" [class.input-habilitar-edicao]="habilitarEdicao"
+        submitText="Ok" cancelText="Cancelar">
+        <ion-option value="contatoa">Contato A</ion-option>
+        <ion-option value="contatob">Contato B</ion-option>
+        <ion-option value="contatoc">Contato C</ion-option>
+        <ion-option value="contatod">Contato D</ion-option>
+        <ion-option value="contatoe">Contato E</ion-option>
+        <ion-option value="contatof">Contato F</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <p>Situação da visita</p>
+      <h2>Agendada</h2>
+    </ion-item>
+
+    <ion-item>
+      <p>Assunto da visita</p>
+      <button ion-button round icon-left color="blueNormal">
+          <ion-icon name="ios-mic"></ion-icon>
+          Gravar áudio
+        </button>
+    </ion-item>
+
+    <br/>
+    <button (click)="salvarVisita()" [hidden]="!habilitarEdicao" ion-button icon-right>
+      Salvar
+      <ion-icon name="ios-checkmark"></ion-icon>
+    </button>
+
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <h6 class="navbar-titulo">Detalhes do Contato</h6>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+
+    <ion-buttons end>
+      <button ion-button [outline]="!habilitarEdicao" (click)="habilitarDesabilitarEdicao()" small icon-only>
+          <ion-icon name="md-create"></ion-icon>
+        </button>
+      <button ion-button outline [hidden]="!habilitarEdicao" (click)="excluirContato()" small icon-only color="danger">
+          <ion-icon name="md-trash"></ion-icon>
+        </button>
+    </ion-buttons>
+
+    <form [formGroup]="contatoValidationForm" (ngSubmit)="salvarContato();">
+
+      <ion-item [hidden]="!contato.cadastroIncompleto" class="aviso-cadastro">
+        <ion-icon name="ios-alert-outline" color="danger" item-start></ion-icon>
+        <p>Complete o cadastro do contato</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Nome</ion-label>
+        <ion-input value="{{contato.nome}}" [class.input-habilitar-edicao]="habilitarEdicao" [disabled]="!habilitarEdicao" type="text" formControlName="nome" [class.input-erro-edicao]="!contatoValidationForm.controls.nome.valid && submitSalvar"></ion-input>
+      </ion-item>
+      <p item-content class="aviso-erro" *ngIf="!contatoValidationForm.controls.nome.valid && submitSalvar">campo obrigatório</p>
+
+      <ion-item>
+        <ion-label stacked>Fone</ion-label>
+        <ion-input value="{{contato.fone}}" [class.input-habilitar-edicao]="habilitarEdicao" [disabled]="!habilitarEdicao" type="text" formControlName="fone" [class.input-erro-edicao]="!contatoValidationForm.controls.nome.valid && submitSalvar"></ion-input>
+      </ion-item>
+      <p item-content class="aviso-erro" *ngIf="!contatoValidationForm.controls.nome.valid && submitSalvar">campo obrigatório</p>
+
+      <ion-item>
+        <ion-label stacked>E-mail</ion-label>
+        <ion-input value="{{contato.email}}" [class.input-habilitar-edicao]="habilitarEdicao" [disabled]="!habilitarEdicao" type="text" formControlName="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Apelido</ion-label>
+        <ion-input value="{{contato.apelido}}" [class.input-habilitar-edicao]="habilitarEdicao" [disabled]="!habilitarEdicao" type="text" formControlName="apelido"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Função</ion-label>
+        <ion-input value="{{contato.funcao}}" [class.input-habilitar-edicao]="habilitarEdicao" [disabled]="!habilitarEdicao" type="text" formControlName="funcao"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Aniversário</ion-label>
+        <ion-datetime [(ngModel)]="dataAniversario" [class.input-habilitar-edicao]="habilitarEdicao" [disabled]="!habilitarEdicao" placeholder="Selecione a data" displayFormat="DD MMM YYYY"
+          formControlName="aniversario"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Observação</ion-label>
+        <ion-textarea value="{{contato.observacao}}" [class.input-habilitar-edicao]="habilitarEdicao" [disabled]="!habilitarEdicao" type="text" formControlName="observacao"></ion-textarea>
+      </ion-item>
+
+      <br/>
+      <button ion-button type="submit" [hidden]="!habilitarEdicao" icon-right>
+        Salvar
+        <ion-icon name="ios-checkmark"></ion-icon>
+      </button>
+
+    </form>
+
+  </ion-list>
+
+</ion-content>

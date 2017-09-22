@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <h6 class="navbar-titulo">Dashboard</h6>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="fundo">
+
+  <h1 style="margin-left: 16px;">Olá, <br/><span style="color: #154572">{{usuarioAutenticado.nome}}</span></h1>
+
+  <ion-grid col-lg-12>
+
+    <ion-row>
+      <ion-card col-md-5>
+        <ion-card-content>
+          Meta
+          <img src="/assets/img/meta.png">
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card col-md-5>
+        <ion-card-content>
+          Visitas Agendadas Hoje
+          <img src="/assets/img/visitas-agendadas.png" class="imagem">
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+
+    <ion-row>
+      <ion-card col-md-5>
+        <ion-card-content>
+          Vendas por Categoria
+          <img src="/assets/img/vendas-por-categoria.png" class="imagem">
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card col-md-5>
+        <ion-card-content>
+          Clientes Visitados
+          <img src="/assets/img/clientes-visitados.png" class="imagem">
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+
+    <ion-row>
+      <ion-card col-md-5>
+        <ion-card-content>
+          Follow-ups Vencidos
+          <img src="/assets/img/followups-vencidos.png" class="imagem">
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card col-md-5>
+        <ion-card-content>
+          <img src="/assets/img/valores.png" class="imagem">
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <h6 class="navbar-titulo">Adicionar Contato</h6>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="contatoCadastroValidationForm" (ngSubmit)="cadastrarContato();">
+
+    <ion-item>
+      <ion-label stacked>Nome</ion-label>
+      <ion-input type="text" formControlName="nome" [class.input-erro-edicao]="!contatoCadastroValidationForm.controls.nome.valid && submitCadastro"></ion-input>
+    </ion-item>
+    <p item-content class="aviso-erro" *ngIf="!contatoCadastroValidationForm.controls.nome.valid && submitCadastro">campo obrigatório</p>
+
+    <ion-item>
+      <ion-label stacked>Fone</ion-label>
+      <ion-input type="text" formControlName="fone" [class.input-erro-edicao]="!contatoCadastroValidationForm.controls.nome.valid && submitCadastro"></ion-input>
+    </ion-item>
+    <p item-content class="aviso-erro" *ngIf="!contatoCadastroValidationForm.controls.nome.valid && submitCadastro">campo obrigatório</p>
+
+    <ion-item>
+      <ion-label stacked>E-mail</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Apelido</ion-label>
+      <ion-input type="text" formControlName="apelido"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Função</ion-label>
+      <ion-input type="text" formControlName="funcao"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Aniversário</ion-label>
+      <ion-datetime placeholder="Selecione a data" displayFormat="DD MMM YYYY" formControlName="aniversario"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Observação</ion-label>
+      <ion-textarea type="text" formControlName="observacao"></ion-textarea>
+    </ion-item>
+
+    <br/>
+    <button ion-button type="submit" icon-right>
+    Salvar
+    <ion-icon name="ios-checkmark"></ion-icon>
+  </button>
+
+  </form>
+
+</ion-content>

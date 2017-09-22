@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <h6 class="navbar-titulo">Clientes Sem Visita</h6>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label stacked>Quantidade de dias sem visita</ion-label>
+    <ion-select [(ngModel)]="filtroDias" submitText="Ok" cancelText="Cancelar">
+      <ion-option value="qtd1">30 dias</ion-option>
+      <ion-option value="qtd2">60 dias</ion-option>
+      <ion-option value="qtd3">90 dias</ion-option>
+      <ion-option value="qtd4">6 meses</ion-option>
+      <ion-option value="qtd5">1 ano</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <br/>
+
+  <ion-list>
+    <ion-item *ngFor="let item of clientes" (click)="verDetalhesCliente(item)">
+      <h2>{{item}}</h2>
+      <h3>Há 32 dias sem visita</h3>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

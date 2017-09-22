@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <h6 class="navbar-titulo">Visitas</h6>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+
+    <ion-buttons end>
+      <button ion-button outline item-end icon-left small icon-only (click)="novaVisita()">
+        <ion-icon name="md-add"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-item>
+      <ion-label stacked>Filtrar por cliente</ion-label>
+      <ion-select [(ngModel)]="filtroCliente" (ionChange)="filtrarPorCliente($event)" placeholder="Selecione o cliente" submitText="Ok"
+        cancelText="Cancelar">
+        <ion-option *ngFor="let resultado of listaClientes" value="{{resultado.cliente.id}}">{{resultado.cliente.nome}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Filtrar por data</ion-label>
+      <ion-datetime displayFormat="MMM YYYY" [(ngModel)]="dataFiltroVisitas" (ionChange)="filtrarPorData()"></ion-datetime>
+    </ion-item>
+
+    <br/>
+
+    <ion-item *ngIf="listaVisitas <= 0">
+      <p>Nenhuma visita encontrada</p>
+    </ion-item>
+
+    <ion-item *ngFor="let visita of listaVisitas">
+      <div (click)="verDetalhesVisita(visita)">
+        <h2 class="nome-empresa">{{ visita.cliente.nome }}</h2>
+        <h2>{{ visita.situacaoVisita.descricao }}</h2>
+        <p *ngIf="!visita.dataFechamento && visita.dataPlanejada">Data Planejada: {{ visita.dataPlanejada | date: 'dd/MM/yyyy' }}</p>
+        <p *ngIf="visita.dataFechamento">Data Fechamento: {{ visita.dataFechamento | date: 'dd/MM/yyyy' }}</p>
+      </div>
+      <button *ngIf="visita.audioGravado" ion-button color="secondary" round item-end (click)="ouvirRegistroVisita(visita)">
+        <ion-icon name="md-volume-up"></ion-icon>
+      </button>
+      <button *ngIf="!visita.audioGravado" ion-button color="blueNormal" round item-end (click)="verDetalhesVisita(visita)">
+        <ion-icon name="ios-mic"></ion-icon>
+      </button>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

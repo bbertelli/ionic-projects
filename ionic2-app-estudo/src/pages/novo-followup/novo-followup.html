@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Novo Follow-up</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label stacked>Contato do follow-up</ion-label>
+      <ion-select placeholder="Selecione o contato" submitText="Ok" cancelText="Cancelar">
+        <ion-option value="contatoa">Contato A</ion-option>
+        <ion-option value="contatob">Contato B</ion-option>
+        <ion-option value="contatoc">Contato C</ion-option>
+        <ion-option value="contatod">Contato D</ion-option>
+        <ion-option value="contatoe">Contato E</ion-option>
+        <ion-option value="contatof">Contato F</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Data do próximo follow-up</ion-label>
+      <ion-datetime placeholder="Selecione a data" displayFormat="DD MMM YYYY"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <p>Assunto do Follow-up</p>
+      <button ion-button round icon-left color="blueNormal">
+          <ion-icon name="ios-mic"></ion-icon>
+          Gravar áudio
+        </button>
+    </ion-item>
+
+    <br/>
+    <button ion-button (click)="novoFollowup()" icon-right>
+        Salvar
+        <ion-icon name="ios-checkmark"></ion-icon>
+      </button>
+
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <h6 class="navbar-titulo">Agenda de Visitas</h6>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="fundo">
+  <ion-card>
+
+    <ion-item>
+      <ion-label>Filtrar por data</ion-label>
+      <ion-datetime displayFormat="MMM YYYY" [(ngModel)]="dataFiltro"></ion-datetime>
+    </ion-item>
+
+  </ion-card>
+
+  <hr>
+
+  <div>
+
+    <div class="dia">
+      <h2>09</h2>
+      <p>Quarta-feira</p>
+    </div>
+
+    <ion-card padding>
+        <p>
+          Visita em Indaiatuba - SP
+        </p>
+        <h2 class="nome-empresa"><b>ATM Digital Sistemas e Softwares</b></h2>
+        <p class="contato">Falar com Bruno Bertelli</p>
+        <button ion-button small round color="secondary" (click)="verUltimasVisitas(item)">
+          <ion-icon name="md-volume-up"></ion-icon>
+        </button>
+        <button ion-button small round color="blueNormal" (click)="verDetalhesVisita(item)">
+          <ion-icon name="ios-mic"></ion-icon>
+        </button>
+    </ion-card>
+
+    <ion-card padding>
+        <p>
+          Visita em Indaiatuba - SP
+        </p>
+        <h2 class="nome-empresa"><b>ATM Digital Sistemas e Softwares</b></h2>
+        <p class="contato">Falar com Bruno Bertelli</p>
+        <button ion-button small round color="secondary" (click)="verUltimasVisitas(item)">
+          <ion-icon name="md-volume-up"></ion-icon>
+        </button>
+        <button ion-button small round color="blueNormal" (click)="verDetalhesVisita(item)">
+          <ion-icon name="ios-mic"></ion-icon>
+        </button>
+    </ion-card>
+
+    <ion-card padding>
+        <p>
+          Visita em Indaiatuba - SP
+        </p>
+        <h2 class="nome-empresa"><b>ATM Digital Sistemas e Softwares</b></h2>
+        <p class="contato">Falar com Bruno Bertelli</p>
+        <button ion-button small round color="secondary" (click)="verUltimasVisitas(item)">
+          <ion-icon name="md-volume-up"></ion-icon>
+        </button>
+        <button ion-button small round color="blueNormal" (click)="verDetalhesVisita(item)">
+          <ion-icon name="ios-mic"></ion-icon>
+        </button>
+    </ion-card>
+
+  </div>
+
+  <hr>
+
+  <div>
+
+    <div class="dia">
+      <h2>10</h2>
+      <p>Quinta-feira</p>
+    </div>
+
+    <ion-card padding>
+        <p>
+          Visita em Indaiatuba - SP
+        </p>
+        <h2 class="nome-empresa"><b>ATM Digital Sistemas e Softwares</b></h2>
+        <p class="contato">Falar com Bruno Bertelli</p>
+        <button ion-button small round color="secondary" (click)="verUltimasVisitas(item)">
+          <ion-icon name="md-volume-up"></ion-icon>
+        </button>
+        <button ion-button small round color="blueNormal" (click)="verDetalhesVisita(item)">
+          <ion-icon name="ios-mic"></ion-icon>
+        </button>
+    </ion-card>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <h6 class="navbar-titulo">Nova Negociação</h6>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label stacked>Cliente</ion-label>
+      <ion-select [(ngModel)]="clientes" (ionChange)="cadastrarNovoCliente($event)" placeholder="Selecione o cliente" submitText="Ok"
+        cancelText="Cancelar">
+        <ion-option value="novo">Novo cliente</ion-option>
+        <ion-option value="clienteb">Cliente B</ion-option>
+        <ion-option value="clientec">Cliente C</ion-option>
+        <ion-option value="cliented">Cliente D</ion-option>
+        <ion-option value="clientee">Cliente E</ion-option>
+        <ion-option value="clientef">Cliente F</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item [hidden]="!novoCliente">
+      <ion-label stacked>Novo Cliente</ion-label>
+      <ion-input placeholder="Insira o nome" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Valor</ion-label>
+      <ion-input type="text" placeholder="Digite um valor"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Contato da negociação</ion-label>
+      <ion-select [(ngModel)]="contatos" (ionChange)="cadastrarNovoContato($event)" placeholder="Selecione um contato" submitText="Ok"
+        cancelText="Cancelar">
+        <ion-option value="novo">Novo contato</ion-option>
+        <ion-option value="contatob">Contato B</ion-option>
+        <ion-option value="contatoc">Contato C</ion-option>
+        <ion-option value="contatod">Contato D</ion-option>
+        <ion-option value="contatoe">Contato E</ion-option>
+        <ion-option value="contatof">Contato F</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item [hidden]="!novoContato">
+      <ion-label stacked>Novo Contato</ion-label>
+      <ion-input placeholder="Insira o nome" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Data do próximo follow-up</ion-label>
+      <ion-datetime placeholder="Escolha uma data" displayFormat="DD MMM YYYY"></ion-datetime>
+    </ion-item>
+
+    <br/>
+    <button ion-button (click)="novoNegocio()" icon-right>
+        Salvar
+        <ion-icon name="ios-checkmark"></ion-icon>
+      </button>
+
+  </ion-list>
+
+</ion-content>

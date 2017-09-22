@@ -1,0 +1,131 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <h6 class="navbar-titulo">Criar Visita</h6>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div>
+    <ion-segment [(ngModel)]="tabs">
+
+      <ion-segment-button value="nao_agendada">
+        Não Agendada
+      </ion-segment-button>
+
+      <ion-segment-button value="agendada">
+        Agendada
+      </ion-segment-button>
+
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="tabs">
+
+    <ion-list *ngSwitchCase="'nao_agendada'">
+
+      <ion-item *ngIf="!clienteTelaAnterior">
+        <ion-label stacked>Cliente</ion-label>
+        <ion-select [(ngModel)]="inputCliente" (ionChange)="selecionarClienteNaoAgendado($event)" placeholder="Selecione o cliente"
+          submitText="Ok" cancelText="Cancelar">
+          <ion-option *ngFor="let resultado of listaClientes" value="{{resultado.cliente.id}}">{{resultado.cliente.nome}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <p item-content class="aviso-erro" *ngIf="!clienteNaoAgendado && !validInputCliente && submitVisitaNaoAgendada">selecione um cliente</p>
+
+      <div *ngIf="clienteTelaAnterior || clienteNaoAgendado">
+        <ion-item>
+          <ion-label stacked>Cliente foi visitado em</ion-label>
+          <ion-datetime placeholder="Selecione a data" displayFormat="DD MMM YYYY" [(ngModel)]="inputDataVisita"></ion-datetime>
+        </ion-item>
+        <p item-content class="aviso-erro" *ngIf="!validInputDataVisita && submitVisitaNaoAgendada">a data não pode ser maior que hoje, para datas futuras utilize o agendamento</p>
+
+        <ion-item>
+          <ion-label stacked>Contato no local</ion-label>
+          <ion-select [(ngModel)]="inputContatoVisita" placeholder="Selecione o contato" submitText="Ok" cancelText="Cancelar">
+            <ion-option *ngFor="let contato of listaContatos" value="{{contato.id}}">{{contato.nome}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <p item-content class="aviso-erro" *ngIf="!validInputContatoVisita && submitVisitaNaoAgendada">selecione um contato</p>
+
+        <button ion-button float-left small clear type="button" (click)="criarNovoContatoNaoAgendado()">Criar novo contato</button>
+
+        <ion-item>
+          <ion-label stacked>Duração da visita</ion-label>
+          <ion-select [(ngModel)]="inputDuracaoVisita" placeholder="Selecione a duração" submitText="Ok" cancelText="Cancelar">
+            <ion-option *ngFor="let duracao of listaDuracao">{{duracao}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <p item-content class="aviso-erro" *ngIf="!validInputDuracaoVisita && submitVisitaNaoAgendada">selecione o tempo de duração da visita</p>
+
+        <ion-item>
+          <p>Assunto da visita</p>
+          <button *ngIf="!audioGravado" (click)="gravarAudio()" ion-button round icon-left color="blueNormal">
+            <ion-icon name="ios-mic"></ion-icon>
+            Gravar áudio
+          </button>
+          <button *ngIf="audioGravado" (click)="ouvirAudio()" ion-button round icon-left color="secondary">
+            <ion-icon name="md-volume-up"></ion-icon>
+            Ouvir áudio
+          </button>
+          <button *ngIf="audioGravado" ion-button type="button" clear (click)="apagarAudio()" item-end icon-only color="danger">
+            <ion-icon name="md-trash"></ion-icon>
+          </button>
+        </ion-item>
+        <p item-content class="aviso-erro" *ngIf="!validAudioGravado && submitVisitaNaoAgendada">grave o áudio do assunto</p>
+
+        <br/>
+        <button ion-button icon-right (click)="criarVisitaNaoAgendada()">
+          Salvar
+          <ion-icon name="ios-checkmark"></ion-icon>
+        </button>
+      </div>
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'agendada'">
+
+      <ion-item *ngIf="!clienteTelaAnterior">
+        <ion-label stacked>Cliente</ion-label>
+        <ion-select [(ngModel)]="inputCliente2" (ionChange)="selecionarClienteAgendado($event)" placeholder="Selecione o cliente"
+          submitText="Ok" cancelText="Cancelar">
+          <ion-option *ngFor="let resultado of listaClientes" value="{{resultado.cliente.id}}">{{resultado.cliente.nome}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <p item-content class="aviso-erro" *ngIf="!clienteAgendado && !validInputCliente2 && submitVisitaAgendada">selecione um cliente</p>
+
+      <div *ngIf="clienteTelaAnterior || clienteAgendado">
+        <ion-item>
+          <ion-label stacked>Data de agendamento</ion-label>
+          <ion-datetime placeholder="Selecione a data" displayFormat="DD MMM YYYY" [(ngModel)]="inputDataVisita2"></ion-datetime>
+        </ion-item>
+        <p item-content class="aviso-erro" *ngIf="!validInputDataVisita2 && submitVisitaAgendada">a data não pode ser menor que hoje, para datas passadas não utilize o agendamento</p>
+
+        <ion-item>
+          <ion-label stacked>Contato planejado</ion-label>
+          <ion-select [(ngModel)]="inputContatoVisita2" placeholder="Selecione o contato" submitText="Ok" cancelText="Cancelar">
+            <ion-option *ngFor="let contato of listaContatos" value="{{contato.id}}">{{contato.nome}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <p item-content class="aviso-erro" *ngIf="!validInputContatoVisita2 && submitVisitaAgendada">selecione um contato</p>
+
+        <button ion-button float-left small clear type="button" (click)="criarNovoContatoAgendado()">Criar novo contato</button>
+
+        <ion-item>
+          <ion-label stacked>Objetivo da visita</ion-label>
+          <ion-textarea [(ngModel)]="inputObjetivoVisita" type="text" placeholder="Descreva o objetivo da visita"></ion-textarea>
+        </ion-item>
+        <p item-content class="aviso-erro" *ngIf="!validInputObjetivoVisita && submitVisitaAgendada">descreva o objetivo da visita</p>
+
+        <br/>
+        <button ion-button (click)="criarVisitaAgendada()" icon-right>
+          Salvar
+          <ion-icon name="ios-checkmark"></ion-icon>
+        </button>
+      </div>
+
+    </ion-list>
+
+  </div>
+
+</ion-content>

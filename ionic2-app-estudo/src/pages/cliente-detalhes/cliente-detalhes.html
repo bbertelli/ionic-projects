@@ -1,0 +1,208 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <h6 class="navbar-titulo">{{cliente.nome}}</h6>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div ion-fixed class="tabs-fixada">
+    <ion-segment [(ngModel)]="tabs">
+
+      <ion-segment-button value="resumo">
+        <ion-icon name="ios-paper"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button value="visitas" (click)="filtrarVisitaPorData()">
+        <ion-icon name="ios-calendar"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button value="negocios">
+        <ion-icon name="ios-briefcase"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button value="contatos">
+        <ion-icon name="ios-people"></ion-icon>
+      </ion-segment-button>
+
+    </ion-segment>
+  </div>
+
+  <br/>
+  <br/>
+  <div [ngSwitch]="tabs">
+
+    <br />
+    <form [formGroup]="clienteValidationForm" (ngSubmit)="atualizarCliente()">
+      <ion-list *ngSwitchCase="'resumo'">
+
+        <ion-item>
+          <h1>Resumo</h1>
+          <button ion-button type="button" [outline]="!habilitarEdicaoCliente" (click)="habilitarDesabilitarEdicaoCliente()" item-end
+            small icon-only>
+            <ion-icon name="md-create"></ion-icon>
+          </button>
+          <button ion-button type="button" outline [hidden]="!habilitarEdicaoCliente" (click)="excluirCliente()" item-end small icon-only
+            color="danger">
+            <ion-icon name="md-trash"></ion-icon>
+          </button>
+        </ion-item>
+
+        <ion-item [hidden]="!cliente.cadastroIncompleto" class="aviso-cadastro">
+          <ion-icon name="ios-alert-outline" color="danger" item-start></ion-icon>
+          <p>Complete o cadastro do cliente</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Cliente</ion-label>
+          <ion-input [disabled]="!habilitarEdicaoCliente" [class.input-habilitar-edicao]="habilitarEdicaoCliente" type="text" formControlName="nome"
+            value="{{cliente.nome}}"></ion-input>
+        </ion-item>
+        <p item-content class="aviso-erro" *ngIf="!clienteValidationForm.controls.nome.valid && submitEdicao">campo obrigatório</p>
+
+        <ion-item>
+          <ion-label stacked>CNPJ</ion-label>
+          <ion-input [disabled]="!habilitarEdicaoCliente" [class.input-habilitar-edicao]="habilitarEdicaoCliente" type="text" formControlName="cnpj"
+            value="{{cliente.cnpj}}"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Endereço</ion-label>
+          <ion-input [disabled]="!habilitarEdicaoCliente" [class.input-habilitar-edicao]="habilitarEdicaoCliente" type="text" formControlName="endereco"
+            value="{{cliente.endereco}}"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Cidade</ion-label>
+          <ion-input [disabled]="!habilitarEdicaoCliente" [class.input-habilitar-edicao]="habilitarEdicaoCliente" type="text" formControlName="cidade"
+            value="{{cliente.cidade}}"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Estado</ion-label>
+          <ion-select placeholder="Selecione o estado" [(ngModel)]="cliente.estado" [disabled]="!habilitarEdicaoCliente" [class.input-habilitar-edicao]="habilitarEdicaoCliente"
+            formControlName="estado" submitText="Ok" cancelText="Cancelar">
+            <ion-option *ngFor="let estado of listaEstado">{{estado}}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Segmento</ion-label>
+          <ion-input [disabled]="!habilitarEdicaoCliente" [class.input-habilitar-edicao]="habilitarEdicaoCliente" type="text" formControlName="segmento"
+            value="{{cliente.segmento}}"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Atrasos</ion-label>
+          <ion-input [disabled]="!habilitarEdicaoCliente" [class.input-habilitar-edicao]="habilitarEdicaoCliente" type="text" formControlName="atrasos"
+            value="{{cliente.atrasos}}"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Valor de atrasos</ion-label>
+          <ion-input [disabled]="!habilitarEdicaoCliente" [class.input-habilitar-edicao]="habilitarEdicaoCliente" type="text" formControlName="valorAtrasos"
+            value="{{cliente.valorAtrasos}}"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Contato principal</ion-label>
+          <ion-select placeholder="Selecione o contato" [(ngModel)]="cliente.contatoPadrao" formControlName="contatoPadrao" [disabled]="!habilitarEdicaoCliente"
+            [class.input-habilitar-edicao]="habilitarEdicaoCliente" submitText="Ok" cancelText="Cancelar">
+            <ion-option *ngFor="let contato of listaContatos" value="{{contato.id}}">{{contato.nome}}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <br/>
+        <button ion-button type="submit" [hidden]="!habilitarEdicaoCliente" icon-right>
+          Salvar
+          <ion-icon name="ios-checkmark"></ion-icon>
+        </button>
+      </ion-list>
+    </form>
+
+    <ion-list *ngSwitchCase="'visitas'">
+
+      <ion-item>
+        <h1>Visitas</h1>
+        <button ion-button outline item-end icon-left small icon-only (click)="novaVisita(cliente)">
+          <ion-icon name="md-add"></ion-icon>
+        </button>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Filtrar por data</ion-label>
+        <ion-datetime displayFormat="MMM YYYY" [(ngModel)]="dataFiltroVisitas" (ionChange)="filtrarVisitaPorData()"></ion-datetime>
+      </ion-item>
+
+      <br/>
+
+      <ion-item *ngIf="listaVisitas <= 0">
+        <p>Nenhuma visita encontrada</p>
+      </ion-item>
+
+      <ion-item *ngFor="let visita of listaVisitas">
+        <div (click)="verDetalhesVisita(visita)">
+          <h2 class="nome-empresa">{{ visita.cliente.nome }}</h2>
+          <h2>{{ visita.situacaoVisita.descricao }}</h2>
+          <p *ngIf="!visita.dataFechamento && visita.dataPlanejada">Data Planejada: {{ visita.dataPlanejada | date: 'dd/MM/yyyy' }}</p>
+          <p *ngIf="visita.dataFechamento">Data Fechamento: {{ visita.dataFechamento | date: 'dd/MM/yyyy' }}</p>
+        </div>
+        <button *ngIf="visita.audioGravado" ion-button color="secondary" round item-end (click)="ouvirRegistroVisita(visita)">
+          <ion-icon name="md-volume-up"></ion-icon>
+        </button>
+        <button *ngIf="!visita.audioGravado" ion-button color="blueNormal" round item-end (click)="verDetalhesVisita(visita)">
+          <ion-icon name="ios-mic"></ion-icon>
+        </button>
+      </ion-item>
+
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'negocios'">
+
+      <ion-item>
+        <h1>Negócios</h1>
+        <button ion-button outline item-end icon-left small icon-only (click)="novaNegociacao()">
+            <ion-icon name="md-add"></ion-icon>
+          </button>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Filtrar por data</ion-label>
+        <ion-datetime displayFormat="MMM YYYY" [(ngModel)]="dataFiltroNegocios"></ion-datetime>
+      </ion-item>
+
+      <br/>
+
+      <ion-item *ngFor="let item of negocios" (click)="verDetalhesNegociacao(item)">
+        <h2>{{ item }}</h2>
+        <h3>01/03/2017</h3>
+        <p>Em andamento</p>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'contatos'">
+
+      <ion-item>
+        <h1>Contatos</h1>
+        <button ion-button outline item-end icon-left small icon-only (click)="novoContato()">
+            <ion-icon name="md-add"></ion-icon>
+          </button>
+      </ion-item>
+
+      <ion-item *ngFor="let contato of listaContatos" (click)="verDetalhesContato(contato)">
+        <h2>{{ contato.nome }}</h2>
+        <h3>{{ contato.fone }}</h3>
+        <ion-icon *ngIf="contato.cadastroIncompleto" name="ios-alert-outline" color="danger" item-end></ion-icon>
+      </ion-item>
+
+      <ion-item *ngIf="listaContatos <= 0">
+        <p>Não há contatos cadastrados</p>
+      </ion-item>
+
+    </ion-list>
+
+  </div>
+
+</ion-content>

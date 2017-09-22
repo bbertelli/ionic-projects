@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <h6 class="navbar-titulo">Negócios</h6>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-buttons end>
+    <button ion-button outline item-end icon-left small icon-only (click)="novaNegociacao()">
+        <ion-icon name="md-add"></ion-icon>
+      </button>
+  </ion-buttons>
+
+  <ion-item>
+    <ion-label stacked>Filtrar por cliente</ion-label>
+    <ion-select placeholder="Selecione o cliente" submitText="Ok" cancelText="Cancelar">
+      <ion-option value="clientea">Cliente Aasdadsasdasdasda</ion-option>
+      <ion-option value="clienteb">Cliente B</ion-option>
+      <ion-option value="clientec">Cliente C</ion-option>
+      <ion-option value="cliented">Cliente D</ion-option>
+      <ion-option value="clientee">Cliente E</ion-option>
+      <ion-option value="clientef">Cliente F</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Filtrar por data</ion-label>
+    <ion-datetime displayFormat="MMM YYYY" [(ngModel)]="dataFiltro"></ion-datetime>
+  </ion-item>
+
+  <br/>
+
+  <ion-list>
+    <ion-item *ngFor="let item of negocios" (click)="verDetalhesNegociacao(item)">
+      <h2 class="nome-empresa">ATM Digital Sistemas e Softwares</h2>
+      <h2>{{ item }}</h2>
+      <h3>01/03/2017</h3>
+      <p>Em andamento</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

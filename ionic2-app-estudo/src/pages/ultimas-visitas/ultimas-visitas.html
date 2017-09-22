@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <h6 class="navbar-titulo">Últimas Visitas</h6>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="fundo">
+  <ion-card padding>
+
+    <h2 class="nome-empresa"><b>ATM Digital Sistemas e Softwares</b></h2>
+
+    <ion-list>
+      <ion-item *ngFor="let item of visitas" class="divider-lista">
+        <button ion-item (click)="verDetalhesVisita(item)">
+          {{ item }}
+          <br/>
+          Fechada
+        </button>
+        <button ion-button color="secondary" round item-end (click)="ouvirRegistroVisita(item)">
+          <ion-icon name="md-volume-up"></ion-icon>
+        </button>
+      </ion-item>
+    </ion-list>
+
+  </ion-card>
+</ion-content>

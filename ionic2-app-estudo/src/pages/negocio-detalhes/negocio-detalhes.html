@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <h6 class="navbar-titulo">Detalhes da Negociação</h6>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div>
+    <ion-segment [(ngModel)]="tabs">
+      <ion-segment-button value="detalhes">
+        Resumo
+      </ion-segment-button>
+      <ion-segment-button value="followups">
+        Follow-ups
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="tabs">
+    <br/>
+    <ion-list *ngSwitchCase="'detalhes'">
+
+      <ion-buttons end>
+        <button ion-button [outline]="!habilitarEdicao" (click)="editarNegocio()" small icon-only>
+            <ion-icon name="md-create"></ion-icon>
+          </button>
+        <button ion-button outline [hidden]="!habilitarEdicao" item-end small icon-only color="danger">
+            <ion-icon name="md-trash"></ion-icon>
+          </button>
+        <button ion-button outline small icon-only color="secondary">
+            <ion-icon name="ios-thumbs-up"></ion-icon>
+          </button>
+        <button ion-button outline small icon-only color="danger">
+            <ion-icon name="ios-thumbs-down"></ion-icon>
+          </button>
+      </ion-buttons>
+      <ion-item>
+        <h2 class="nome-empresa">ATM Digital Sistemas e Softwares</h2>
+      </ion-item>
+
+      <br/>
+
+      <ion-item>
+        <ion-label stacked>Valor</ion-label>
+        <ion-input [disabled]="!habilitarEdicao" [class.input-habilitar-edicao]="habilitarEdicao" type="text" value="R$ 5.350,00"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Contato da negociação</ion-label>
+        <ion-select placeholder="Selecione o contato" [disabled]="!habilitarEdicao" [class.input-habilitar-edicao]="habilitarEdicao"
+          submitText="Ok" cancelText="Cancelar">
+          <ion-option value="contatoa">Contato A</ion-option>
+          <ion-option value="contatob">Contato B</ion-option>
+          <ion-option value="contatoc">Contato C</ion-option>
+          <ion-option value="contatod">Contato D</ion-option>
+          <ion-option value="contatoe">Contato E</ion-option>
+          <ion-option value="contatof">Contato F</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Situação</ion-label>
+        <ion-input disabled="true" type="text" value="Em andamento"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Data do último follow-up</ion-label>
+        <ion-input disabled="true" type="text" value="22/03/2017"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Data do próximo follow-up</ion-label>
+        <ion-input disabled="true" type="text" value="15/08/2017"></ion-input>
+      </ion-item>
+
+      <br/>
+      <button ion-button (click)="salvarNegocio()" [hidden]="!habilitarEdicao" icon-right>
+        Salvar
+        <ion-icon name="ios-checkmark"></ion-icon>
+      </button>
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'followups'">
+
+      <ion-item>
+        <button ion-button outline item-end icon-left small icon-only (click)="novoFollowup()">
+            <ion-icon name="md-add"></ion-icon>
+          </button>
+      </ion-item>
+
+      <ion-item *ngFor="let item of followups" class="divider-lista">
+        <div (click)="verTextoFollowup()">
+          <h2>{{ item }}</h2>
+          <h3>Follow-up de teste feito para testar o tamanho do texto.</h3>
+        </div>
+        <button ion-button color="secondary" round item-end (click)="ouvirFollowup()">
+            <ion-icon name="md-volume-up"></ion-icon>
+          </button>
+      </ion-item>
+
+    </ion-list>
+  </div>
+
+</ion-content>
